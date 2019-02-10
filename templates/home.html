@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle"
+      data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('command') }}">Run Command</a></li>
+        <li><a href="{{ url_for('submitted') }}">View Commands</a></li>
+        {% if not current_user.is_authenticated %}
+          <li><a href="{{ url_for('login') }}">Login</a></li>
+          <li><a href="{{ url_for('register') }}">Register</a></li>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block content %}
+<p>
+  <h1>Welcome to Webshell</h1>
+</p>
+<p>
+  &nbsp
+  WebShell is a quick and dirty flask project that offers a web interface to run bash commands.
+  &nbsp
+  To be able to submit commands and view your previously submitted commands, you must have be registered and logged in.
+  <hr />
+  <p>
+    &nbsp
+    To submit commands and view previously submitted commands, click on:
+  </p>
+  <p>
+    &nbsp
+  <a href="{{ url_for('command') }}">Run Command</a> - To submit commands.
+  </p>
+  &nbsp
+  <a href="{{ url_for('submitted') }}">View Commands</a> - To view your history of previously submitted commands.
+{% endblock %}
